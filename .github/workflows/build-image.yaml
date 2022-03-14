@@ -24,6 +24,15 @@ jobs:
           echo "${{ secrets.VAULT_CERT }}" > vault.crt
           echo "${{ secrets.VAULT_KEY }}" > vault.key
 
+      - name: Cache certs
+        id: certs
+        uses: actions/cache@v2
+        with:
+          path: |
+            ca.crt
+            vault.crt
+            vault.key
+
   build-versioned-tag:
     needs: prereqs
     runs-on: ubuntu-latest
@@ -36,6 +45,11 @@ jobs:
             dockerfile: Dockerfile
 
     steps:
+
+      - name: test
+        run: |
+          ls -lah certs
+
       - name: Set outputs
         id: vars
         run: echo ::set-output name=sha_short::${GITHUB_SHA::7}
@@ -76,6 +90,7 @@ jobs:
 
 
   build-latest-tag:
+    needs: prereqs
     runs-on: ubuntu-latest
     name: Build ${{ matrix.name }}-latest
     strategy:
