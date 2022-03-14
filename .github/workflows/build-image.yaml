@@ -24,9 +24,6 @@ jobs:
             dockerfile: Dockerfile
 
     steps:
-      - name: Set outputs
-        id: vars
-        run: echo ::set-output name=sha_short::${GITHUB_SHA::7}
 
       - name: Checkout
         uses: actions/checkout@v2
@@ -66,8 +63,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ matrix.name }}:${{ matrix.vault-version }}
-            ${{ matrix.name }}:${{ matrix.vault-version }}-${{ steps.vars.outputs.sha_short }}
+            ${{ env.DOCKER_REGISTRY_USERNAME }}/${{ matrix.name }}:${{ matrix.vault-version }}
 
 
   build-latest-tag:
