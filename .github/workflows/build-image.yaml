@@ -7,6 +7,7 @@ on:
     paths:
       - 'Dockerfile'
       - 'config.hcl'
+      - '.github/'
 
 env:
   DOCKER_REGISTRY: teokyllc.azurecr.io
@@ -111,7 +112,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: ${{ env.DOCKER_REGISTRY }}
+          registry: teokyllc.azurecr.io
           username: ${{ env.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWD }}
 
