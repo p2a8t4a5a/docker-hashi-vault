@@ -7,7 +7,7 @@ on:
     paths:
       - 'Dockerfile'
       - 'config.hcl'
-      - '.github/*'
+      - '.github/workflows/*.yaml'
 
 env:
   DOCKER_REGISTRY: teokyllc.azurecr.io
