@@ -5,7 +5,7 @@ disable_mlock = true
 
 storage "azure" {
   accountName = "teokyllcvault"
-  accountKey  = "TOKEN"
+  accountKey  = "#TOKEN#"
   container   = "vault"
   environment = "AzurePublicCloud"
 }

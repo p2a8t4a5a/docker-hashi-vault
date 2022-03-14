@@ -9,7 +9,8 @@ on:
       - 'config.hcl'
 
 env:
-  DOCKER_REGISTRY_USERNAME: johndvs
+  DOCKER_REGISTRY: teokyllc.azurecr.io
+  DOCKER_REGISTRY_USERNAME: teokyllc
 
 jobs:
 
@@ -35,6 +36,9 @@ jobs:
           echo "${{ secrets.VAULT_CERT }}" > vault.crt
           echo "${{ secrets.VAULT_KEY }}" > vault.key
 
+      - name: Replace token in config.hcl
+        run: sed -i 's/#TOKEN#/${{ secrets.SA_ACCESS_KEY }}/g' config.hcl
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -52,6 +56,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
+          registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ env.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWD }}
 
@@ -86,6 +91,9 @@ jobs:
           echo "${{ secrets.VAULT_CERT }}" > vault.crt
           echo "${{ secrets.VAULT_KEY }}" > vault.key
 
+      - name: Replace token in config.hcl
+        run: sed -i 's/#TOKEN#/${{ secrets.SA_ACCESS_KEY }}/g' config.hcl
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
@@ -103,6 +111,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
+          registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ env.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWD }}
 
