@@ -25,9 +25,9 @@ jobs:
           echo "${{ secrets.VAULT_KEY }}" > vault.key
 
       - name: Cache certs
-        key: certs
         uses: actions/cache@v2
         with:
+          key: certs
           path: |
             ca.crt
             vault.crt

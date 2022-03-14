@@ -8,6 +8,6 @@ COPY vault.crt /vault/vault.crt
 COPY vault.key /vault/vault.key
 COPY ca.crt /vault/vault.ca.crt
 
-RUN ls -lah 
+RUN ls -lah
 
 ENTRYPOINT vault server -config=/vault/config.hcl
