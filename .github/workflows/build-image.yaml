@@ -57,7 +57,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: teokyllc.azurecr.io
+          registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ env.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWD }}
 
@@ -69,7 +69,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.DOCKER_REGISTRY_USERNAME }}/${{ matrix.name }}:${{ matrix.vault-version }}
+            ${{ env.DOCKER_REGISTRY }}/${{ matrix.name }}:${{ matrix.vault-version }}
 
 
   build-latest-tag:
@@ -112,7 +112,7 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          registry: teokyllc.azurecr.io
+          registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ env.DOCKER_REGISTRY_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWD }}
 
@@ -124,4 +124,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ${{ env.DOCKER_REGISTRY_USERNAME }}/${{ matrix.name }}:latest
+            ${{ env.DOCKER_REGISTRY }}/${{ matrix.name }}:latest
