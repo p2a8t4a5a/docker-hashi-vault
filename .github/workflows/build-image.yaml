@@ -80,15 +80,16 @@ jobs:
             dockerfile: Dockerfile
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Get certs
         run: |
           echo "::add-mask::certs"
           echo "${{ secrets.CA_CERT }}" > vault.ca.crt
           echo "${{ secrets.VAULT_CERT }}" > vault.crt
           echo "${{ secrets.VAULT_KEY }}" > vault.key
-
-      - name: Checkout
-        uses: actions/checkout@v2
+          ls -lah
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
