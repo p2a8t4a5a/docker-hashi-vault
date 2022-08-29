@@ -17,3 +17,16 @@ listener "tcp" {
   tls_key_file       = "/vault/vault.key"
   tls_client_ca_file = "/vault/vault.ca.crt"
 }
+
+storage "file" {
+  path = "/vault/data"
+}
+
+listener "tcp" {
+  address     = "0.0.0.0:8200"
+  tls_disable = "true"
+}
+
+api_addr = "http://<ip>:8200"
+ui = true
+disable_mlock = true
